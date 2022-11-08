@@ -1,111 +1,38 @@
-
+import {useState} from 'react';
 
 
 const App = () => {
 
+  // Initializing status
+  let [left, setLeft] = useState(0);
+  let [right, setRight] = useState(0);
 
+  // Handle functions  (I'm thinking of some way to simplify them.)
+  let addOneLeft = () => setLeft(left+ 1);
+  let addOneRight = () => setRight(right +1);
   
-    const course = {
-      
-      name: 'Half Stack application development',
-      
-      parts: [
-      
-      {
-      name:  'Fundamentals of React',
-      exersises: 10
-    },
-    
-    {
-      name:  'Using props to pass data',
-      exersises: 7
-    },
-    
-    {
-      name:  'State of a component',
-      exersises: 14
-    }
-
-  ]
-
-}
-
-
 
   return (
-
-      <>
-        <Header course={course.name} />
-        <Content parts={course.parts} />
-        <Total parts={course.parts}/>
-
-
-
-      
-      
-      </>
-  )
-}
-
-
-const Header = (props) =>{
-
-  console.log(props);
-
-return (
-
-  <>
-    <h1>
-      {props.course}
-    </h1>
-  </>
-
-
-)
-
-}
-
-
-const Content = (props) =>{
-
-    return(
-
     <>
-
-      {props.parts.map( (item, index) => {
-    return (
-    <div key={index}>
-      <p> {item.name} </p>    
-      <p>Exersises: {item.exersises}</p>
-    </div>
-
-      )
-    })}
-
-  </>
-    )
-
-    
-
-  
-}
-
-
-
-
-
-  const Total = (props) =>{
-
-    return (
-    <>
-    
-    <p>Number of exersises: {props.parts.exersises}</p>
-    
+      {/* Joining the left & right variables to passing them as an uniquie object */}
+      <Display position={{left, right}}/>
+      <Button onClick={addOneLeft} text="Left"/>
+      <Button onClick={addOneRight} text="Right"/>
     </>
     
-    )
-    
-    }
+  );
+
+}
+
+
+
+  const Button = ({onClick, text}) => <button onClick={onClick}>{text}</button>
+
+  // destructuring the position object inside the props' object
+  const Display = ({position: {left, right}}) => <div>Left: {left} · Rigth: {right}</div>;
+
+
+
 
 
 export default App;
