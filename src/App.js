@@ -1,27 +1,43 @@
-import { isContentEditable } from "@testing-library/user-event/dist/utils"
-
 
 
 
 const App = () => {
 
-    const course = 'Half Stack application development'
-    const part1 = 'Fundamentals of React'
-    const exersises1 = 10
-    const part2 = 'Using props to pass data'
-    const exersises2 = 7
-    const part3 = 'State of a component'
-    const exersises3 = 14
+
+  
+    const course = {
+      
+      name: 'Half Stack application development',
+      
+      parts: [
+      
+      {
+      name:  'Fundamentals of React',
+      exersises: 10
+    },
+    
+    {
+      name:  'Using props to pass data',
+      exersises: 7
+    },
+    
+    {
+      name:  'State of a component',
+      exersises: 14
+    }
+
+  ]
+
+}
+
 
 
   return (
 
       <>
-        <Header course={course} />
-        <Content part={part1} exersises={exersises1} />
-        <Content part={part2} exersises={exersises2} />
-        <Content part={part3} exersises={exersises3} />
-        <Total total={exersises1 + exersises2 + exersises3}/>
+        <Header course={course.name} />
+        <Content parts={course.parts} />
+        <Total parts={course.parts}/>
 
 
 
@@ -34,10 +50,14 @@ const App = () => {
 
 const Header = (props) =>{
 
+  console.log(props);
+
 return (
 
   <>
-    <h1>{props.course}</h1>
+    <h1>
+      {props.course}
+    </h1>
   </>
 
 
@@ -48,17 +68,27 @@ return (
 
 const Content = (props) =>{
 
-  return (
-  <>
-   
-    <p>
-      {props.part} {props.exersises}
-    </p>
-  </>
+    return(
 
-  );
+    <>
+
+      {props.parts.map( (item, index) => {
+    return (
+    <div key={index}>
+      <p> {item.name} </p>    
+      <p>Exersises: {item.exersises}</p>
+    </div>
+
+      )
+    })}
+
+  </>
+    )
+
+    
+
   
-  }
+}
 
 
 
@@ -69,7 +99,7 @@ const Content = (props) =>{
     return (
     <>
     
-    <p>Number of exersises: {props.total}</p>
+    <p>Number of exersises: {props.parts.exersises}</p>
     
     </>
     
